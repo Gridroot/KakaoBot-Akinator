@@ -1,0 +1,2 @@
+# KakaoBot-Akinator
+Akinator module
