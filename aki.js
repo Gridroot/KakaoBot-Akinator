@@ -43,7 +43,7 @@ module.exports = (function () {
 	}
 	
 	akinator.prototype.step = function (answerId) {
-		if (this.url == undefined) new Error("start하지 않았습니다.");
+		if (!this.url) throw new Error("start하지 않았습니다.");
 		
 		const url = this.url + "/answer_api?callback=jQuery331023608747682107778_" + new Date().getTime() + "&urlApiWs=" + this.urlApiWs + "&childMod=" + this.childMode.childMod + "&session=" + this.session + "&signature=" + this.signature + "&step=" + this.currentStep + "&answer=" + answerId + "&frontaddr=" + this.frontaddr + "&question_filter=" + this.childMode.questionFilter;
 		const page = org.jsoup.Jsoup.connect(url).header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8").header("x-requested-with", "XMLHttpRequest").userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/81.0.4044.92 Chrome/81.0.4044.92 Safari/537.36").get().text(); //*/
@@ -56,7 +56,7 @@ module.exports = (function () {
 	}
 	
 	akinator.prototype.back = function () {
-		if (this.url == undefined) new Error("start하지 않았습니다.");
+		if (!this.url) throw new Error("start하지 않았습니다.");
 		
 		const url = this.urlApiWs + "/cancel_answer?&callback=jQuery331023608747682107778_" + new Date().getTime() + "&session=" + this.session + "&childMod=" + this.childMode.childMod + "&signature=" + this.signature + "&step=" + this.currentStep + "&answer=-1&question_filter=" + this.childMode.questionFilter;
 		const page = org.jsoup.Jsoup.connect(url).header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8").header("x-requested-with", "XMLHttpRequest").userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/81.0.4044.92 Chrome/81.0.4044.92 Safari/537.36").ignoreContentType(true).get().text(); //*/
@@ -69,7 +69,7 @@ module.exports = (function () {
 	}
 	
 	akinator.prototype.win = function () {
-		if (this.url == undefined) new Error("start하지 않았습니다.");
+		if (!this.url) throw new Error("start하지 않았습니다.");
 		
 		const url = this.urlApiWs + "/list?callback=jQuery331023608747682107778_" + new Date().getTime() + "&signature=" + this.signature +"&childMod=" + this.childMode.childMod + "&step=" + this.currentStep + "&session=" + this.session;
 		const page = org.jsoup.Jsoup.connect(url).header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8").header("x-requested-with", "XMLHttpRequest").userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/81.0.4044.92 Chrome/81.0.4044.92 Safari/537.36").ignoreContentType(true).get().text(); //*/
