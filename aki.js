@@ -82,5 +82,18 @@ module.exports = (function () {
 		this.guessCount = json.parameters.NbObjetsPertinents;
 	}
 	
+	akinator.prototype.continue = function () {
+		if (!this.url) throw new Error("start하지 않았습니다.");
+		
+		const url = this.urlApiWs + "/exclusion?&callback=jQuery331023608747682107778_" + new Date().getTime() + "&session=" + this.session + "&childMod=" + this.childMode.childMod + "&signature=" + this.signature + "&step=" + this.currentStep + "&question_filter=" + this.childMode.questionFilter + "&forward_answer=1";
+		const page = org.jsoup.Jsoup.connect(url).header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8").header("x-requested-with", "XMLHttpRequest").userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) snap Chromium/81.0.4044.92 Chrome/81.0.4044.92 Safari/537.36").ignoreContentType(true).get().text(); //*/
+		const json = JSON.parse(page.substring(page.indexOf("(") + 1, page.length - 1));
+		
+		this.currentStep = this.currentStep + 1;
+		this.progress = json.parameters.progression;
+		this.question = json.parameters.question;
+		this.answers = json.parameters.answers.map(ans => ans.answer);
+	}
+	
 	return akinator;
 })();
