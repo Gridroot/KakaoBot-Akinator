@@ -46,7 +46,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "예") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
+				if (akinator[room][sender].progress > 80) {
 					akinator[room][sender].win();
 					replier.reply("[" + sender + "] 인물: " + akinator[room][sender].answers[0].name + "\n  ㄴ맞습니다\n  ㄴ아닙니다");
 				} else {
@@ -61,7 +61,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "아니오") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
+				if (akinator[room][sender].progress > 80) {
 					akinator[room][sender].win();
 					replier.reply("[" + sender + "] 인물: " + akinator[room][sender].answers[0].name + "\n  ㄴ맞습니다\n  ㄴ아닙니다");
 				} else {
@@ -76,7 +76,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "모르겠습니다") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
+				if (akinator[room][sender].progress > 80) {
 					akinator[room][sender].win();
 					replier.reply("[" + sender + "] 인물: " + akinator[room][sender].answers[0].name + "\n  ㄴ맞습니다\n  ㄴ아닙니다");
 				} else {
@@ -91,7 +91,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "그럴겁니다") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
+				if (akinator[room][sender].progress > 80) {
 					akinator[room][sender].win();
 					replier.reply("[" + sender + "] 인물: " + akinator[room][sender].answers[0].name + "\n  ㄴ맞습니다\n  ㄴ아닙니다");
 				} else {
@@ -106,7 +106,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "아닐겁니다") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
+				if (akinator[room][sender].progress > 80) {
 					akinator[room][sender].win();
 					replier.reply("[" + sender + "] 인물: " + akinator[room][sender].answers[0].name + "\n  ㄴ맞습니다\n  ㄴ아닙니다");
 				} else {
@@ -122,12 +122,14 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
 				if (!akinator[room]["start"][sender]) {
-					akinator[room][sender].back();
-					if (akinator[room][sender].currentStep == 0) {
-						replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ"));
-						akinator[room]["start"][sender] = true;
-					} else
-					replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ") + "\n  ㄴ뒤로가기\n진행률: " + akinator[room][sender].progress + "%");
+					if (!akinator[room][sender].progress > 80) {
+						akinator[room][sender].back();
+						if (akinator[room][sender].currentStep == 0) {
+							replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ"));
+							akinator[room]["start"][sender] = true;
+						} else
+						replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ") + "\n  ㄴ뒤로가기\n진행률: " + akinator[room][sender].progress + "%");
+					}
 				}
 			}
 		}
@@ -136,7 +138,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "맞습니다") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
+				if (akinator[room][sender].progress > 80) {
 					replier.reply("[" + sender + "] 아키네이터가 이겼습니다!\n아키네이터가 맞춘인물: " + akinator[room][sender].answers[0].name);
 					delete akinator[room][sender];
 					delete akinator[room]["start"][sender];
@@ -148,8 +150,19 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 	if (msg == "아닙니다") {
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
-				if (akinator[room][sender].progress > 70 || akinator[room][sender].currentStep > 78) {
-					replier.reply("[" + sender + "] 뒤로 돌아가시겠습니까?\n  ㄴ뒤로가기\n  ㄴ.아키네이터 종료");
+				if (akinator[room][sender].progress > 80) {
+					replier.reply("[" + sender + "] 계속하시겠습니까?\n  ㄴ계속\n  ㄴ.아키네이터 종료");
+				}
+			}
+		}
+	}
+	
+	if (msg == "계속") {
+		if (akinator[room]) {
+			if (akinator[room][sender]) {
+				if (akinator[room][sender].progress > 80) {
+					akinator[room][sender].continue();
+					replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ") + "\n  ㄴ뒤로가기\n진행률: " + akinator[room][sender].progress + "%");
 				}
 			}
 		}
