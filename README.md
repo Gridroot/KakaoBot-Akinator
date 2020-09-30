@@ -122,7 +122,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
 				if (!akinator[room]["start"][sender]) {
-					if (!akinator[room][sender].progress < 80) {
+					if (!(akinator[room][sender].progress > 80)) {
 						akinator[room][sender].back();
 						if (akinator[room][sender].currentStep == 0) {
 							replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ"));
