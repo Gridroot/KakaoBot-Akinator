@@ -1,5 +1,5 @@
 # KakaoBot-Akinator
-이 모듈은 https://github.com/jgoralcz/aki-api 을 포팅한 모듈입니다.
+이 모듈은 https://github.com/jgoralcz/aki-api 을 포팅한 모듈입니다.(사실 대부분 뜯어고쳤.. 읍읍)
 
 # 사용법
 aki.js 파일을 메신저봇R 폴더 - global_modules 폴더속에 넣는다.
@@ -122,7 +122,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 		if (akinator[room]) {
 			if (akinator[room][sender]) {
 				if (!akinator[room]["start"][sender]) {
-					if (!akinator[room][sender].progress > 80) {
+					if (!akinator[room][sender].progress < 80) {
 						akinator[room][sender].back();
 						if (akinator[room][sender].currentStep == 0) {
 							replier.reply("[" + sender + "] 질문: " + akinator[room][sender].question + "\n  ㄴ" + akinator[room][sender].answers.join("\n  ㄴ"));
